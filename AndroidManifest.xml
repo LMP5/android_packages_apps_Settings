@@ -2181,6 +2181,11 @@
                 android:value="true" />
         </activity>
 
+        <!-- LMP5 TWEAKS START -->
+        <activity android:name=".lmp5.lmp5Settings" />
+        <!-- LMP% TWEAKS END -->
+
+
         <activity android:name=".applications.ProtectedAppsActivity"
                   android:label="@string/protected_apps"
                   android:excludeFromRecents="true"
