@@ -134,6 +134,8 @@ public final class BluetoothEnabler extends GenericSwitchToggle {
                 setChecked(true);
                 setEnabled(true);
                 updateSearchIndex(true);
+                // enable page and inquiry scan
+                mLocalAdapter.setScanMode(BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE);
                 break;
             case BluetoothAdapter.STATE_TURNING_OFF:
                 setEnabled(false);

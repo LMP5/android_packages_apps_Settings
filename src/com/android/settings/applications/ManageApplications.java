@@ -100,23 +100,20 @@ final class CanBeOnSdCardChecker {
         }
     }
     
-    boolean check(PackageInfo info) {
+    boolean check(ApplicationInfo info) {
         boolean canBe = false;
-        if (info.isThemeApk || !PackageHelper.isExternalInstallPossible()) {
-            // Don't even bother checking the other cases, no media is available or it's a theme
-        } else if ((info.applicationInfo.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
+        if ((info.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
             canBe = true;
         } else {
-            if ((info.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+            if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
                 if (info.installLocation == PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL ||
                         info.installLocation == PackageInfo.INSTALL_LOCATION_AUTO) {
                     canBe = true;
                 } else if (info.installLocation
                         == PackageInfo.INSTALL_LOCATION_UNSPECIFIED) {
-                    if (mInstallLocation != PackageHelper.APP_INSTALL_INTERNAL) {
-                        // For apps with no preference, let the app be moved
-                        // unless the user specifically selected that they want
-                        // to have apps stored on internal storage.
+                    if (mInstallLocation == PackageHelper.APP_INSTALL_EXTERNAL) {
+                        // For apps with no preference and the default value set
+                        // to install on sdcard.
                         canBe = true;
                     }
                 }

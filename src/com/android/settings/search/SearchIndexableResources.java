@@ -277,7 +277,7 @@ public final class SearchIndexableResources {
         sResMap.put(ButtonSettings.class.getName(),
                 new SearchIndexableResource(
                         Ranking.getRankForClassName(ButtonSettings.class.getName()),
-                        NO_DATA_RES_ID,
+                        R.xml.button_settings,
                         ButtonSettings.class.getName(),
                         R.drawable.ic_settings_buttons));
 
@@ -299,7 +299,7 @@ public final class SearchIndexableResources {
                 new SearchIndexableResource(
                         Ranking.getRankForClassName(
                                 com.android.settings.cyanogenmod.PrivacySettings.class.getName()),
-                        NO_DATA_RES_ID,
+                        R.xml.privacy_settings_cyanogenmod,
                         com.android.settings.cyanogenmod.PrivacySettings.class.getName(),
                         R.drawable.ic_settings_privacy));
     }

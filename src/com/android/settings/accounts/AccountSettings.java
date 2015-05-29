@@ -49,7 +49,6 @@ import android.preference.PreferenceScreen;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
-import com.android.settings.widget.SettingsAppWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -592,7 +591,6 @@ public class AccountSettings extends SettingsPreferenceFragment
                 public void onClick(DialogInterface dialog, int which) {
                     ContentResolver.setMasterSyncAutomaticallyAsUser(mEnabling,
                             mUserHandle.getIdentifier());
-                    SettingsAppWidgetProvider.updateWidget(context);
                 }
             });
             builder.setNegativeButton(android.R.string.cancel, null);

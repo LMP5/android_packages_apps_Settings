@@ -24,7 +24,6 @@ import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -141,22 +140,6 @@ public class LockPatternActivity extends Activity implements OnNotifyAccountRese
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("isAccountView", mAccountView.getVisibility() == View.VISIBLE);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState.getBoolean("isAccountView")) {
-            switchToAccount();
-        } else {
-            switchToPattern(false);
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MENU_RESET:
@@ -198,7 +181,6 @@ public class LockPatternActivity extends Activity implements OnNotifyAccountRese
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.patternlock);
 
         mPatternLockHeader = (TextView) findViewById(R.id.pattern_lock_header);

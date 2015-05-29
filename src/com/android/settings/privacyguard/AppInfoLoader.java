@@ -36,9 +36,6 @@ import java.util.List;
     private PackageManager mPm;
     private boolean mShowSystemApps;
     private AppOpsManager mAppOps;
-    private static final String[] BLACKLISTED_PACKAGES = {
-            "com.android.systemui"
-    };
 
     public AppInfoLoader(Context context, boolean showSystemApps) {
         super(context);
@@ -67,15 +64,6 @@ import java.util.List;
         cancelLoad();
     }
 
-    private boolean isBlacklisted(String packageName) {
-        for (String pkg : BLACKLISTED_PACKAGES)  {
-            if (pkg.equals(packageName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     /**
     * Uses the package manager to query for all currently installed apps
     * for the list.
@@ -91,9 +79,7 @@ import java.util.List;
             final ApplicationInfo appInfo = info.applicationInfo;
 
             // skip all system apps if they shall not be included
-            if ((!mShowSystemApps && (appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0)
-                    || (appInfo.uid == android.os.Process.SYSTEM_UID)
-                    || isBlacklisted(appInfo.packageName)) {
+            if (!mShowSystemApps && (appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
                 continue;
             }
 

@@ -81,8 +81,6 @@ public class UsbSettings extends SettingsPreferenceFragment {
                 Log.e(TAG, "UsbAccessoryMode " + mUsbAccessoryMode);
                 boolean connected = intent.getExtras().getBoolean(UsbManager.USB_CONNECTED);
                 if (!connected) {
-                    Toast.makeText(getActivity(), R.string.usb_not_connected,
-                                   Toast.LENGTH_SHORT).show();
                     finish();
                     return;
                 } else {

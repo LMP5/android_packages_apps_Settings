@@ -110,19 +110,6 @@
         </dashboard-tile>
 
     </dashboard-category>
-        
-        <!-- LMP5 -->
-    <dashboard-category
-            android:id="@+id/lmp5_section"
-            android:title="@string/header_category" >
-	    	
-        <dashboard-tile
-                android:id="@+id/lmp5_settings"
-                android:title="@string/tweaks_title"
-                android:fragment="com.android.settings.lmp5.lmp5Settings"
-                android:icon="@drawable/tnlogo"
-                />
-    </dashboard-category>
 
     <!-- DEVICE -->
     <dashboard-category
@@ -134,7 +121,7 @@
                 android:id="@+id/sound_settings"
                 android:title="@string/category_sounds"
                 android:fragment="com.android.settings.SoundSettings"
-                android:icon="@drawable/ic_settings_sounds"
+                android:icon="@drawable/ic_settings_notifications"
                 />
 
         <!-- Display & lights -->
@@ -170,7 +157,7 @@
                 android:id="@+id/lockscreen_settings"
                 android:title="@string/lockscreen_settings"
                 android:fragment="com.android.settings.lockscreen.LockScreenSettings"
-                android:icon="@drawable/ic_settings_lockscreen"
+                android:icon="@drawable/ic_settings_security"
                 />
 
         <!-- Buttons -->
@@ -247,6 +234,24 @@
                 android:fragment="com.android.settings.profiles.ProfilesSettings"
                 android:title="@string/profiles_settings_title"
                 android:icon="@drawable/ic_settings_profiles"
+                />
+
+        <!-- Status bar -->
+        <dashboard-tile
+                android:id="@+id/status_bar_settings"
+                android:title="@string/status_bar_title"
+                android:fragment="com.android.settings.cyanogenmod.StatusBarSettings"
+                android:icon="@drawable/ic_settings_extdesk_hidenavbar"
+                settings:advanced="true"
+                />
+
+        <!-- Notification drawer -->
+        <dashboard-tile
+                android:id="@+id/notification_drawer_settings"
+                android:title="@string/notification_drawer_title"
+                android:fragment="com.android.settings.cyanogenmod.NotificationDrawerSettings"
+                android:icon="@drawable/ic_settings_notification_drawer"
+                settings:advanced="true"
                 />
 
         <!-- Application Settings -->

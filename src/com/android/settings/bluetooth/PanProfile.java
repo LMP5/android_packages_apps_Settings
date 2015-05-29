@@ -35,11 +35,9 @@ import java.util.List;
 final class PanProfile implements LocalBluetoothProfile {
     private static final String TAG = "PanProfile";
     private static boolean V = true;
-    private static final int CONNECTION_ERROR_TIME_THRESH = 5000; // 5 seconds is plenty of time
 
     private BluetoothPan mService;
     private boolean mIsProfileReady;
-    private long mLastConnectTime = -1;
 
     // Tethering direction for each device
     private final HashMap<BluetoothDevice, Integer> mDeviceRoleMap =
@@ -85,7 +83,6 @@ final class PanProfile implements LocalBluetoothProfile {
     }
 
     public boolean connect(BluetoothDevice device) {
-        mLastConnectTime = System.currentTimeMillis();
         if (mService == null) return false;
         List<BluetoothDevice> sinks = mService.getConnectedDevices();
         if (sinks != null) {
@@ -140,14 +137,9 @@ final class PanProfile implements LocalBluetoothProfile {
         int state = getConnectionStatus(device);
         switch (state) {
             case BluetoothProfile.STATE_DISCONNECTED:
-                if (mLastConnectTime > 0 && (System.currentTimeMillis() - mLastConnectTime)
-                        < CONNECTION_ERROR_TIME_THRESH) {
-                    return R.string.bluetooth_pan_profile_summary_use_for_error;
-                }
                 return R.string.bluetooth_pan_profile_summary_use_for;
 
             case BluetoothProfile.STATE_CONNECTED:
-                mLastConnectTime = -1;
                 if (isLocalRoleNap(device)) {
                     return R.string.bluetooth_pan_nap_profile_summary_connected;
                 } else {

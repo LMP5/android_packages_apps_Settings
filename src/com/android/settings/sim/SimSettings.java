@@ -64,10 +64,10 @@ public class SimSettings extends RestrictedSettingsFragment implements Indexable
     private static final String KEY_ACTIVITIES = "activities";
     private static final String KEY_PRIMARY_SUB_SELECT = "select_primary_sub";
 
-    private static final int EVT_UPDATE = 1;
-
     private long mPreferredDataSubscription;
-    private int mNumSlots = 0;
+
+    private static final int EVT_UPDATE = 1;
+    private static int mNumSlots = 0;
 
     /**
      * By UX design we have use only one Subscription Information(SubInfo) record per SIM slot.
@@ -78,7 +78,7 @@ public class SimSettings extends RestrictedSettingsFragment implements Indexable
     private List<SubscriptionInfo> mSubInfoList = null;
     private Preference mPrimarySubSelect = null;
 
-    private List<MultiSimEnablerPreference> mSimEnablers = null;
+    private static List<MultiSimEnablerPreference> mSimEnablers = null;
 
     private SubscriptionInfo mCellularData = null;
     private SubscriptionInfo mCalls = null;
@@ -88,7 +88,10 @@ public class SimSettings extends RestrictedSettingsFragment implements Indexable
     private int mPhoneCount;
     private int[] mCallState;
     private PhoneStateListener[] mPhoneStateListener;
-    private boolean mDataDisableToastDisplayed = false;
+
+    private boolean inActivity;
+    private boolean dataDisableToastDisplayed = false;
+
     private SubscriptionManager mSubscriptionManager;
 
     public SimSettings() {
@@ -311,14 +314,14 @@ public class SimSettings extends RestrictedSettingsFragment implements Indexable
         simPref.setEnabled((mNumSims > 1) && callStateIdle);
         // Display toast only once when the user enters the activity even though the call moves
         // through multiple call states (eg - ringing to offhook for incoming calls)
-        if (callStateIdle == false && isResumed() && !mDataDisableToastDisplayed) {
+        if (callStateIdle == false && inActivity && dataDisableToastDisplayed == false) {
             Toast.makeText(getActivity(), R.string.data_disabled_in_active_call,
                     Toast.LENGTH_SHORT).show();
-            mDataDisableToastDisplayed = true;
+            dataDisableToastDisplayed = true;
         }
         // Reset dataDisableToastDisplayed
-        if (callStateIdle) {
-            mDataDisableToastDisplayed = false;
+        if (callStateIdle == true) {
+            dataDisableToastDisplayed = false;
         }
     }
 
@@ -347,8 +350,9 @@ public class SimSettings extends RestrictedSettingsFragment implements Indexable
     @Override
     public void onPause() {
         super.onPause();
+        inActivity = false;
         Log.d(TAG,"on Pause");
-        mDataDisableToastDisplayed = false;
+        dataDisableToastDisplayed = false;
         for (int i = 0; i < mSimEnablers.size(); ++i) {
             MultiSimEnablerPreference simEnabler = mSimEnablers.get(i);
             if (simEnabler != null) simEnabler.cleanUp();
@@ -358,6 +362,7 @@ public class SimSettings extends RestrictedSettingsFragment implements Indexable
     @Override
     public void onResume() {
         super.onResume();
+        inActivity = true;
         Log.d(TAG,"on Resume, number of slots = " + mNumSlots);
         initLTEPreference();
         updateAllOptions();
