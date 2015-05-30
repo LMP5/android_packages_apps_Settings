@@ -17,6 +17,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
         android:title="@string/about_settings">
 
+         <PreferenceScreen android:key="vm12_logo"
+                          android:enabled="false"
+                          android:layout="@layout/vm12_logo_row" />
+
         <!-- System update settings - launches activity -->
         <PreferenceScreen android:key="system_update_settings"
                 android:title="@string/system_update_settings_list_item_title" 
@@ -63,7 +67,7 @@
             android:title="@string/contributor_cloud_title"
             android:fragment="com.android.settings.cyanogenmod.ContributorsCloud" >
         </PreferenceScreen> -->
-
+                
         <!-- Legal Information -->
         <PreferenceScreen
                 android:key="container"
@@ -129,7 +133,7 @@
         <!-- Mod version -->
         <Preference android:key="mod_version"
                 style="?android:preferenceInformationStyle"
-                android:title="@string/mod_version"
+                android:title="@string/lmp5_mod_version"
                 android:summary="@string/mod_version_default" />
 
         <!-- Device firmware version -->
